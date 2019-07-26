@@ -37,12 +37,12 @@ public final class Bank {
      * @param codeWord
      * @return номер счёта
      */
-    public int createAccount(User user, String password, String codeWold){
+    public int createAccount(User user, String password, String codeWord){
         for (Client client : clients) {
             if (client != null && client.user.passport == user.passport) return -1;    
         }
 
-        clients[count] = new Client(user, count, password, codeWold);
+        clients[count] = new Client(user, count, password, codeWord);
 
         return count++;
     }
@@ -226,10 +226,10 @@ public final class Bank {
      * Осуществляется через кодовое слово и номер счёта
      * 
      * @param id - номер счёта
-     * @param codeWorld - кодовое слово
+     * @param codeWord - кодовое слово
      * @return статус
      */
-    public Enum BlokedAccount(int id, String codeWold) {
+    public Enum BlokedAccount(int id, String codeWord) {
         Enum check = checkClient(id);
         if (check != Status.ErrBlock) return check;
         if (!clients[id].codeWord.equals(codeWord)) return Status.ErrCode;
@@ -244,13 +244,13 @@ public final class Bank {
      * Осуществляется через кодовое слово и номер счёта
      * 
      * @param id - номер счёта
-     * @param codeWorld - кодовое слово
+     * @param codeWord - кодовое слово
      * @return
      */
     public Enum CloseBlock(int id, String codeWord) {
         Enum check = checkClient(id);
         if (check != Status.ErrBlock) return check;
-        if (clients[id].codeWord != codeWorld) return Status.ErrCode;
+        if (clients[id].codeWord.equals(codeWord)) return Status.ErrCode;
 
         clients[id].block = false;
         return Status.Ok;

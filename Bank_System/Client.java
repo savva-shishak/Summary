@@ -9,7 +9,7 @@ public final class Client {
     User user;
     double balans = 0;
     boolean block = false;
-    String password, passwordRev, codeWorld;
+    String password, passwordRev, codeWord;
     
     /**
      * 
@@ -17,10 +17,10 @@ public final class Client {
      * @param id - номер карты
      * @param password - пароль
      */
-    Client(User user, int id, String password, String codeWorld){
+    Client(User user, int id, String password, String codeWord){
         this.user = user;
         this.password = password;
-        this.codeWorld = codeWorld;
+        this.codeWord = codeWord;
 
         StringBuffer text = new StringBuffer(password);
         text.reverse();
