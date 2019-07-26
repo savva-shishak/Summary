@@ -1,7 +1,9 @@
 package Bank_System;
 
 /**
- * Bank
+ * По большому счёту, этот класс является просто контейнером, 
+ * в котором хранятся ссылки на объекты Client, 
+ * и через который можно взаимодействовать с ними
  */
 public final class Bank {
 
@@ -32,14 +34,15 @@ public final class Bank {
      * 
      * @param user - Пользователь, которого надо зарегистрировать
      * @param password - Пароль
+     * @param codeWord
      * @return номер счёта
      */
-    public int createAccount(User user, String password, String codeWorld){
+    public int createAccount(User user, String password, String codeWold){
         for (Client client : clients) {
             if (client != null && client.user.passport == user.passport) return -1;    
         }
 
-        clients[count] = new Client(user, count, password, codeWorld);
+        clients[count] = new Client(user, count, password, codeWold);
 
         return count++;
     }
@@ -226,10 +229,10 @@ public final class Bank {
      * @param codeWorld - кодовое слово
      * @return статус
      */
-    public Enum BlokedAccount(int id, String codeWorld) {
+    public Enum BlokedAccount(int id, String codeWold) {
         Enum check = checkClient(id);
         if (check != Status.ErrBlock) return check;
-        if (clients[id].codeWorld != codeWorld) return Status.ErrCode;
+        if (!clients[id].codeWord.equals(codeWord)) return Status.ErrCode;
 
         clients[id].block = true;
         return Status.Ok;
@@ -244,10 +247,10 @@ public final class Bank {
      * @param codeWorld - кодовое слово
      * @return
      */
-    public Enum CloseBlock(int id, String codeWorld) {
+    public Enum CloseBlock(int id, String codeWord) {
         Enum check = checkClient(id);
         if (check != Status.ErrBlock) return check;
-        if (clients[id].codeWorld != codeWorld) return Status.ErrCode;
+        if (clients[id].codeWord != codeWorld) return Status.ErrCode;
 
         clients[id].block = false;
         return Status.Ok;
